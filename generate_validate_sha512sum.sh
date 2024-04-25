@@ -110,4 +110,6 @@ for i in $(seq 1 $id); do
 
 done
 
+rm -f ${outputf}_eval
+
 exit 0
