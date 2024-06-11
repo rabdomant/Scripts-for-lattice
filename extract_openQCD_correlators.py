@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.8
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import argparse
 import numpy as np
@@ -14,9 +14,9 @@ def print_array(id,corrfile):
     bunchsize=arrayelem[-1]
 
     if args.v:
-        print( arraysize , type(arraysize))
-        print( arrayelem , type(arrayelem))
-        print( arraytype , type(arraytype))
+        print( "# Number of indexes=", arraysize )
+        print( "# Indexes range=", arrayelem )
+        print( "# Array type=",arraytype )
 
     lexyindex=0
     while(lexyindex<datasize/bunchsize):
@@ -81,9 +81,7 @@ def rew(i):
 with open(inputmeasfilename) as corrfile:
     x = np.fromfile(corrfile,dtype="<i", count=6)
 
-    if args.v:
-        print( x, type(x))
-
+   
     #source type
     mtype=x[0]
 
@@ -101,20 +99,28 @@ with open(inputmeasfilename) as corrfile:
 
     #number of sources
     nsrc=x[5]
-
-    
+        
     if(mtype==0):
         nsrc=1
 
+    if args.v:
+        print(f"# Source type {mtype}")
+        print(f"# Number of flavours {nf}")
+        print(f"# Number of source points {nx}")
+        print(f"# T max {tmax}")
+        print(f"# Max flow time {ntm}")
+        print(f"# Number of sources {nsrc}")
+    
     if(nx!=0):
         mx = np.fromfile(corrfile,dtype="<i", count=4*nx).reshape(nx,4)
         if args.v:
-            print( mx, type(mx))
-            
+            print( "# Sources locations: ")
+            for i in range(nx):
+                print("#\t",mx[i])
     if(ntm!=0):
         tm = np.fromfile(corrfile,dtype="<f8", count=ntm)
         if args.v:
-            print( tm, type(tm))
+            print( "# Flow times:",tm)
 
 
     while True:
